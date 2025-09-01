@@ -1,0 +1,155 @@
+<!-- public/admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div style="display:flex;align-items:center;">
+                <button id="hamburger-menu-btn" style="background:none;border:none;padding:0;margin-right:16px;cursor:pointer;display:flex;align-items:center;">
+                    <img src="images/hamburger.svg" alt="Menu" style="height:2em;width:2em;filter:drop-shadow(0 0 2px #222);">
+                </button>
+                <img src="images/mb.png" alt="Metal Shop Logo" style="height:4.4em;width:auto;display:block;">
+            </div>
+            <div id="profile-widget" class="profile-widget"></div>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="roofing.html">Roofing & Wall Cladding</a>
+            <a href="architectural.html">Architectural Systems</a>
+            <a href="gutter.html">Gutters & Accessories</a>
+            <a href="Pf.html">Polycarbonate & Fibreglass</a>
+            <a href="custom-flashings.html">Custom Flashings</a>
+            <a href="insulation.html">Insulation</a>
+            <a href="ff.html">Fasteners & Fixings</a>
+            <a href="ta.html">Tools & Accessories</a>
+            <a href="cart.html">Cart</a>
+            <a href="login.html">Login</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+        <div id="nav-overlay"></div>
+    </header>
+    <main>
+        <section>
+            <h2>Admin Panel</h2>
+            <div id="admin-login">
+                <form id="admin-login-form">
+                    <input type="password" id="admin-password" placeholder="Admin Password" required>
+                       <input type="password" id="admin-password" placeholder="Admin Password" required autocomplete="new-password">
+                    <button type="submit">Login</button>
+                    <div id="admin-login-msg"></div>
+                </form>
+            </div>
+            <div id="admin-content" style="display:none;">
+                <h3>Add/Edit Item</h3>
+                <form id="item-form" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="item-id">
+                    <input type="text" name="name" id="item-name" placeholder="Item Name" required>
+                    <input type="number" name="price" id="item-price" placeholder="Price" step="0.01" required>
+                    <select name="category" id="item-category" required>
+                        <option value="">Select Category</option>
+                        <option value="roofing">Roofing & Wall Cladding</option>
+                        <option value="architectural">Architectural Systems</option>
+                        <option value="gutters">Gutters & Accessories</option>
+                        <option value="poly">Polycarbonate & Fibreglass</option>
+                        <option value="custom-flashings">Custom Flashings</option>
+                        <option value="insulation">Insulation</option>
+                        <option value="fasteners">Fasteners & Fixings</option>
+                        <option value="tools">Tools & Accessories</option>
+                    </select>
+                    <select name="unit" id="item-unit" required>
+                        <option value="M2">M2</option>
+                        <option value="EACH">EACH</option>
+                        <option value="PACKET">PACKET</option>
+                        <option value="TUB">TUB</option>
+                        <option value="LINEAR METER">LINEAR METER</option>
+                    </select>
+                    <textarea name="description" id="item-description" placeholder="Description" required></textarea>
+                    <input type="file" name="image" id="item-image" accept="image/*">
+                    <button type="submit" id="item-submit-btn">Add Item</button>
+                </form>
+                <div>
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="">Default</option>
+                        <option value="name">Name</option>
+                        <option value="category">Category</option>
+                    </select>
+                </div>
+                                <div style="margin-top:12px; margin-bottom:8px;">
+                                    <button id="bulk-duplicate-btn" type="button">Bulk Duplicate Selected</button>
+                                    <input id="bulk-duplicate-names" type="text" placeholder="Comma-separated new names (e.g. LokClad,MiniClad)" style="width:320px;margin-left:8px;" />
+                                </div>
+                                <div id="items-list"></div>
+                                <!-- Variant Management Modal -->
+                                <div id="variant-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:2000; align-items:center; justify-content:center;">
+                                    <div style="background:#fff; padding:24px; border-radius:8px; min-width:320px; max-width:90vw; max-height:90vh; overflow:auto; position:relative;">
+                                        <button id="close-variant-modal" style="position:absolute; top:8px; right:8px;">&times;</button>
+                                        <h3>Manage Variants for <span id="variant-style-name"></span></h3>
+                                        <form id="variant-form" enctype="multipart/form-data" style="margin-bottom:16px;">
+                                            <input type="hidden" name="item_id" id="variant-item-id">
+                                            <select name="size" id="variant-size" required>
+                                                <option value="">Select Size</option>
+                                                <option value="0.42">0.42</option>
+                                                <option value="0.48">0.48</option>
+                                            </select>
+                                            <select name="colour" id="variant-colour" required>
+                                                <option value="">Select Colour</option>
+                                                <option value="Dover White">Dover White</option>
+                                                <option value="Surfmist">Surfmist</option>
+                                                <option value="Southerly">Southerly</option>
+                                                <option value="Shale Grey">Shale Grey</option>
+                                                <option value="Bluegum">Bluegum</option>
+                                                <option value="Windspray">Windspray</option>
+                                                <option value="Basalt">Basalt</option>
+                                                <option value="Classic Cream">Classic Cream</option>
+                                                <option value="Paperbark">Paperbark</option>
+                                                <option value="Evening Haze">Evening Haze</option>
+                                                <option value="Dune">Dune</option>
+                                                <option value="Gully">Gully</option>
+                                                <option value="Jasper">Jasper</option>
+                                                <option value="Manor Red">Manor Red</option>
+                                                <option value="Wallaby">Wallaby</option>
+                                                <option value="Woodland Grey">Woodland Grey</option>
+                                                <option value="Pale Eucalypt">Pale Eucalypt</option>
+                                                <option value="Cottage Green">Cottage Green</option>
+                                                <option value="Ironstone">Ironstone</option>
+                                                <option value="Deep Ocean">Deep Ocean</option>
+                                                <option value="Night Sky">Night Sky</option>
+                                                <option value="Monument">Monument</option>
+                                                <option value="Zincalume">Zincalume</option>
+                                            </select>
+                                            <input type="number" name="price" id="variant-price" placeholder="Price" step="0.01" required>
+                                            <input type="file" name="image" id="variant-image" accept="image/*">
+                                            <button type="submit" id="variant-submit-btn">Add Variant</button>
+                                        </form>
+                                        <button id="bulk-edit-prices-btn" type="button" style="margin-bottom:10px;">Bulk Edit Prices</button>
+                                        <div id="bulk-edit-prices-form" style="display:none; margin-bottom:10px;">
+                                            <input type="number" id="bulk-price-value" placeholder="New Price" step="0.01">
+                                            <button type="button" id="apply-bulk-price-btn">Apply to Selected</button>
+                                            <button type="button" id="cancel-bulk-price-btn">Cancel</button>
+                                        </div>
+                                        <div id="variant-list"></div>
+                                    </div>
+                                </div>
+                <h3>User Tier Management</h3>
+                <div id="user-tiers"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Metal Shop</p>
+    </footer>
+    <script src="js/hamburger.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+if (location.hostname === "127.0.0.1") {
+    location.hostname = "localhost";
+}
+</script>
+</body>
+</html>

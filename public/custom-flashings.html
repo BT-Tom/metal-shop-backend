@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Flashings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: linear-gradient(120deg, #e3f2fd 0%, #f6f8fa 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(33,150,243,0.08);
+            padding: 36px 28px 28px 28px;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            font-size: 2.2rem;
+        }
+        .canvas-controls {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+        .canvas-controls .btn {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: none;
+            background: #e3eaf3;
+            color: #1976d2;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            font-size: 1.05rem;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.07);
+        }
+        .canvas-controls .btn-primary, .canvas-controls .btn-dark {
+            background: #1976d2;
+            color: #fff;
+        }
+        .canvas-controls .btn-outline-secondary {
+            background: #fff;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+        }
+        .canvas-controls .btn-warning {
+            background: #ffeb3b;
+            color: #333;
+        }
+        .canvas-controls .btn-info {
+            background: #03a9f4;
+            color: #fff;
+        }
+        .canvas-controls .btn-success {
+            background: #43a047;
+            color: #fff;
+        }
+        .canvas-controls .btn-dark {
+            background: #333;
+            color: #fff;
+        }
+        .canvas-controls .btn:active {
+            filter: brightness(0.95);
+        }
+        .canvas-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 22px;
+            position: relative;
+        }
+        #flashings-canvas {
+            border-radius: 14px;
+            box-shadow: 0 2px 16px rgba(33,150,243,0.09);
+            background: #f9fafc;
+            border: 2px solid #e3eaf3;
+            display: block;
+        }
+        #node-labels {
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .node-label-group {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            z-index: 20;
+            pointer-events: auto;
+            background: rgba(255,255,255,0.98);
+            padding: 3px 3px 3px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.07);
+            flex-direction: row;
+        }
+        .node-label-input {
+            background: #f6f8fa;
+            border: 2px solid #b0bec5;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 1rem;
+            width: 70px;
+            margin-right: 6px;
+            color: #1976d2;
+        }
+        .node-label-btn {
+            background: #43a047;
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.15rem;
+            margin-left: 4px;
+            transition: opacity 0.2s;
+            box-shadow: 0 1px 4px rgba(33,150,243,0.07);
+        }
+        .node-label-btn.angle {
+            background: #ff9800;
+        }
+        .node-label-group.angle {
+            border: 2px dashed #ff9800;
+        }
+        .node-label-input.angle {
+            border-color: #ff9800;
+            color: #ff9800;
+        }
+        #flashing-summary {
+            margin: 28px auto 0 auto;
+            background: #f6f8fa;
+            border-radius: 10px;
+            padding: 22px 18px;
+            font-size: 1.15rem;
+            color: #333;
+            box-shadow: 0 2px 12px rgba(33,150,243,0.06);
+            max-width: 420px;
+            text-align: center;
+        }
+        label {
+            font-weight: 600;
+            color: #1976d2;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 12px 2vw;
+            }
+            #flashing-summary {
+                padding: 14px 4vw;
+            }
+        }
+        @media (max-width: 520px) {
+            h1 { font-size: 1.3rem; }
+            .canvas-controls .btn { font-size: 0.95rem; padding: 8px 10px; }
+            #flashings-canvas { width: 98vw !important; height: 98vw !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div style="display:flex;align-items:center;">
+                <button id="hamburger-menu-btn" style="background:none;border:none;padding:0;margin-right:16px;cursor:pointer;display:flex;align-items:center;">
+                    <img src="images/hamburger.svg" alt="Menu" style="height:2em;width:2em;filter:drop-shadow(0 0 2px #222);">
+                </button>
+                <img src="images/mb.png" alt="Metal Shop Logo" style="height:4.4em;width:auto;display:block;">
+            </div>
+            <div id="profile-widget" class="profile-widget"></div>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="roofing.html">Roofing & Wall Cladding</a>
+            <a href="architectural.html">Architectural Systems</a>
+            <a href="gutter.html">Gutters & Accessories</a>
+            <a href="Pf.html">Polycarbonate & Fibreglass</a>
+            <a href="custom-flashings.html">Custom Flashings</a>
+            <a href="insulation.html">Insulation</a>
+            <a href="ff.html">Fasteners & Fixings</a>
+            <a href="ta.html">Tools & Accessories</a>
+            <a href="cart.html">Cart</a>
+            <a href="login.html">Login</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+        <div id="nav-overlay"></div>
+    </header>
+    <div class="container">
+        <h2>Custom Flashings</h2>
+        <div class="canvas-controls">
+            <button id="draw-mode" class="btn btn-primary">Draw</button>
+            <button id="edit-mode" class="btn btn-outline-secondary">Edit</button>
+            <button id="undo" class="btn btn-warning">Undo</button>
+            <button id="redo" class="btn btn-info">Redo</button>
+            <button id="add-to-cart" class="btn btn-success">Add to Cart</button>
+            <button id="tapered-toggle" class="btn btn-dark">Tapered Flashing</button>
+            <button id="paint-side-toggle" class="btn btn-warning">Paint Side</button>
+            <!-- colour swatches moved into the summary area (with length & quantity) -->
+        </div>
+        <div class="canvas-wrapper">
+            <canvas id="flashings-canvas" width="500" height="500"></canvas>
+            <div id="node-labels"></div>
+        </div>
+        <div id="flashing-summary"></div>
+    <input type="hidden" id="flashing-colour" name="flashing_colour" value="">
+    </div>
+    <footer>
+        <p>&copy; 2025 Metal Shop</p>
+    </footer>
+    <script src="js/custom-flashings.js"></script>
+    <script src="js/hamburger.js"></script>
+    <script src="js/profile.js"></script>
+    
+</body>
+</html>

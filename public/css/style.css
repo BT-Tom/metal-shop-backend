@@ -1,0 +1,682 @@
+body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8fafc 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+.main-header {
+    background: #23272b;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.08);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+/* Ensure the header children (header-content and nav) sit on one row when space permits */
+.main-header {
+    padding: 0 24px;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: none;
+    margin: 0;
+    padding: 0 24px;
+    min-height: 64px;
+}
+/* Left group inside header (hamburger + logo) */
+.header-content > .left-group,
+.header-content > div[style] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#hamburger-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 8px;
+}
+.site-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+}
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.login-btn:hover {
+    background: #fff;
+    color: #1976d2;
+}
+/* If you want the nav bar to also be dark grey, uncomment below: */
+.main-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    background: #23272b;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.04);
+    padding: 0 24px;
+    margin-left: auto;
+    border-radius: 0 0 12px 12px;
+}
+/* Make nav links white for contrast on dark background */
+.main-nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 6px;
+    font-weight: 500;
+    padding: 10px 16px 10px 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    font-size: 1.05rem;
+    transition: background 0.2s, color 0.2s;
+}
+.main-nav a:hover {
+    background: #1976d2;
+    color: #fff;
+}
+.nav-icon {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: 7px;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 2px #222);
+}
+.shop-item-add-btn:hover {
+    background: linear-gradient(90deg, #388e3c 60%, #43a047 100%);
+    box-shadow: 0 4px 16px rgba(67,160,71,0.16);
+    transform: scale(1.04);
+}
+
+/* shop item card look for category listings */
+.shop-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    margin: 12px;
+    max-width: 320px;
+    display: inline-block;
+    vertical-align: top;
+}
+.shop-item img { max-width: 100%; border-radius: 8px; }
+.shop-item h3 { margin: 8px 0 6px 0; }
+
+/* Product detail inline control rows */
+.product-detail-card { max-width: 720px; margin: 0 auto; }
+.product-detail-controls { display:flex; flex-direction:column; gap:12px; width:100%; }
+.field-row { display:flex; align-items:center; gap:12px; }
+.field-row label { min-width: 80px; font-weight:600; }
+.field-row .inline-control { display:flex; align-items:center; gap:8px; }
+
+/* colour swatches to the right */
+.swatch-list { display:flex; gap:8px; align-items:center; margin-left:12px; flex-wrap:wrap; max-width: calc(5 * 36px + 4 * 8px); }
+.swatch { width:28px; height:28px; border-radius:50%; border:2px solid #ddd; cursor:pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.08); flex: 0 0 28px; }
+.swatch.selected { outline: 3px solid #1976d2; }
+
+/* Page container with curved rectangle (matches Custom Flashings container) */
+.page-container {
+    max-width: 720px;
+    margin: 36px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(33,150,243,0.08);
+    padding: 28px 24px;
+}
+
+@media (max-width: 900px) {
+    .shop-item { max-width: 95%; display:block; }
+    .field-row { flex-direction:column; align-items:flex-start; }
+    .field-row label { min-width: auto; }
+}
+/* Hamburger menu: show by default and let media queries adjust visibility if needed */
+#hamburger-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3001;
+}
+
+/* Page title moved into the header to sit inline with the logo/hamburger */
+.header-content .page-title,
+.header-content .page-title * {
+    color: #fff;
+}
+.header-content .page-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    padding-left: 8px;
+}
+
+@media (max-width: 900px) {
+    /* hide the moved page title on smaller screens to save space */
+    .header-content .page-title {
+        display: none;
+    }
+}
+@media (max-width: 900px) {
+    #hamburger-menu-btn {
+        display: flex !important;
+    }
+    nav {
+        display: none !important;
+        flex-direction: column;
+        background: #222;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 240px;
+        min-width: 180px;
+        height: auto;
+        max-height: 90vh;
+        z-index: 3002;
+        box-shadow: 2px 0 16px rgba(0,0,0,0.28);
+        border-right: 3px solid #1976d2;
+        border-radius: 0 12px 12px 0;
+        padding: 24px 0 12px 0;
+        transition: transform 0.2s;
+        overflow-y: auto;
+        gap: 6px;
+    }
+    nav.open {
+        display: flex !important;
+        z-index: 3002 !important;
+    }
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: 500;
+        padding: 7px 18px;
+        border-radius: 6px;
+        transition: background 0.2s, color 0.2s;
+    }
+    nav a:hover {
+        background: #fff;
+        color: #1976d2;
+    }
+}
+nav.open {
+  display: flex !important;
+  z-index: 3002 !important;
+}
+/* Optional: overlay for nav */
+#nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 3000;
+}
+nav.open ~ #nav-overlay {
+  display: block;
+}
+header {
+  position: relative;
+  z-index: 2003;
+}
+@media (min-width: 901px) {
+    nav {
+        left: 0;
+        top: 128px; /* match taller header */
+    }
+}
+
+/* Strong, defensive header sizing for desktop to avoid page-specific CSS changing the height */
+@media (min-width: 901px) {
+    .main-header {
+    height: 128px !important;
+    min-height: 128px !important;
+    box-sizing: border-box;
+    overflow: visible; /* allow nav to be visible if it would otherwise wrap */
+    flex-wrap: nowrap; /* keep logo, title and nav on single line */
+    }
+    .header-content {
+        height: 128px !important;
+        min-height: 128px !important;
+        align-items: center;
+    }
+    :root { --profile-space: 250px; }
+    .main-nav {
+        height: 128px !important;
+        min-height: 128px !important;
+        align-items: center;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin-right: var(--profile-space) !important;
+    }
+    .main-nav a {
+        padding: 0 12px !important;
+        height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    .header-content .page-title { font-size: 1.8rem !important; }
+    /* scale logo and hamburger images to fit the taller header */
+    .header-content img[alt="Metal Shop Logo"] {
+        height: 8.8em !important; /* roughly double the previous 4.4em */
+        width: auto !important;
+        display: block !important;
+    }
+    #hamburger-menu-btn img {
+        height: 4em !important; /* double the 2em size */
+        width: auto !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .shop-item {
+        width: 45vw;
+        min-width: 180px;
+        max-width: 95vw;
+        margin: 16px 2vw;
+    }
+    nav {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 16px 0 10px 0;
+    }
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+    nav a {
+        margin: 4px 0;
+        padding: 10px 0;
+        border-radius: 0;
+        font-size: 1.08rem;
+    }
+    .shop-item {
+        width: 92vw;
+        min-width: 0;
+        margin: 12px 0;
+        padding: 16px 6vw 14px 6vw;
+    }
+    .shop-item img {
+        max-width: 90vw;
+    }
+    .shop-item button {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 14px 0;
+    }
+    main, section {
+        padding: 0 2vw;
+    }
+    footer {
+        font-size: 1rem;
+        padding: 14px 0 10px 0;
+    }
+}
+/* Global styles */
+
+body {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8fafc 100%);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Reserve space on the right for the floating cart when present. JS will set --floating-cart-space */
+/* floating cart removed; body padding reverted to normal */
+
+/* Cart item and thumbnail styles */
+.cart-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.cart-thumb {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+.cart-meta { font-size: 0.92rem; color: #444; margin-top:4px; }
+
+
+/* Node label styles */
+.node-label {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.9rem;
+    position: absolute;
+    z-index: 20;
+    pointer-events: auto; /* Allow interaction */
+}
+.node-label-group {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    z-index: 20;
+    pointer-events: auto;
+    background: rgba(255,255,255,0.97);
+    padding: 2px 2px 2px 0;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    flex-direction: row; /* Ensure horizontal layout */
+}
+.node-label-input {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 6px;
+
+/* floating cart removed */
+    font-size: 0.9rem;
+    width: 60px;
+    margin-right: 4px;
+}
+.node-label-btn {
+    background: #28a745;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 2px;
+/* Fix header height on desktop so pages look consistent when navigating */
+@media (min-width: 901px) {
+    .main-header {
+        box-sizing: border-box;
+        height: 64px; /* fixed header height */
+        padding: 0 24px;
+    }
+    .header-content {
+        height: 64px;
+        align-items: center;
+    }
+    .main-nav {
+        height: 64px;
+        align-items: center;
+    }
+}
+    transition: opacity 0.2s;
+}
+.node-label-btn.angle {
+    background: #ff9800;
+}
+.node-label-btn:active {
+    filter: brightness(0.9);
+}
+.node-label-group.angle {
+    border: 1.5px dashed #ff9800;
+}
+.node-label-input.angle {
+    border-color: #ff9800;
+    color: #ff9800;
+}
+
+/* Canvas styles */
+canvas {
+    border: 1px solid #ccc;
+    background: #fff;
+    display: block;
+    margin: 1rem auto;
+}
+
+/* Summary styles */
+#summary {
+    background: #f1f1f1;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-item {
+    margin: 0 1rem;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-outline-secondary:hover {
+    background: #f8f9fa;
+}
+
+/* Edit mode styles */
+.edit-mode .node-label {
+    display: none;
+}
+.edit-mode .node-label-input {
+    display: inline-block;
+}
+.edit-mode .node-label-btn {
+    display: inline-block;
+}
+.edit-mode #summary {
+    display: none;
+}
+
+/* Tapered lines styles */
+.tapered-line {
+    stroke: #ff9800;
+    stroke-width: 4;
+    fill: none;
+}
+
+.tapered-line-label {
+    fill: #ff9800;
+    font-weight: bold;
+    font-size: 16px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+/* Navigation styles */
+
+
+/* Shop item styles */
+
+.shop-item {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(33,150,243,0.10);
+    padding: 22px 18px 18px 18px;
+    margin: 22px 14px;
+    display: inline-block;
+    vertical-align: top;
+    width: 250px;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+}
+.shop-item:hover {
+    box-shadow: 0 8px 32px rgba(33,150,243,0.18);
+    transform: translateY(-4px) scale(1.03);
+}
+.shop-item img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.07);
+}
+.shop-item .price {
+    color: #1976d2;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    display: block;
+}
+.shop-item button {
+    background: linear-gradient(90deg, #43a047 60%, #66bb6a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 1.08rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.shop-item button:hover {
+    background: linear-gradient(90deg, #388e3c 60%, #43a047 100%);
+    box-shadow: 0 4px 16px rgba(67,160,71,0.16);
+    transform: scale(1.04);
+}
+
+/* Footer styles */
+
+footer {
+    background: linear-gradient(90deg, #e3f2fd 60%, #bbdefb 100%);
+    color: #333;
+    text-align: center;
+    padding: 20px 0 18px 0;
+    margin-top: 40px;
+    font-size: 1.08rem;
+    box-shadow: 0 -2px 8px rgba(33,150,243,0.04);
+}
+
+/* Add these styles */
+.tier-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.profile-widget {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.profile-widget .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-widget .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1976d2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Cart rendered inside the profile widget */
+.profile-widget { overflow: visible; }
+
+.xp-bar {
+    width: 200px;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+.xp-bar .progress {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    transition: width 0.3s ease;
+}
+
+.tier-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: #1976d2;
+    color: white;
+    font-size: 0.8em;
+    margin-left: 5px;
