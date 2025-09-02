@@ -19,15 +19,22 @@ const userRoutes = require('./routes/userRoutes');
 const app = express();
 
 // Configure CORS to allow requests from the production frontend and allow credentials (cookies)
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://www.metalbroker.com.au';
-const allowedOrigins = [FRONTEND_URL];
+// Support multiple allowed frontend origins via FRONTEND_ORIGINS (comma-separated).
+// If not provided, allow both https://www.metalbroker.com.au and https://metalbroker.com.au by default.
+const FRONTEND_ORIGINS = process.env.FRONTEND_ORIGINS;
+let allowedOrigins;
+if (FRONTEND_ORIGINS && FRONTEND_ORIGINS.trim().length > 0) {
+    allowedOrigins = FRONTEND_ORIGINS.split(',').map(s => s.trim()).filter(Boolean);
+} else {
+    allowedOrigins = ['https://www.metalbroker.com.au', 'https://metalbroker.com.au'];
+}
+
 app.use(cors({
     origin: function(origin, callback) {
-        // Allow non-browser requests (e.g., curl, server-to-server) when origin is undefined
+        // Allow non-browser requests (curl, server-to-server) when origin is undefined
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            return callback(null, true);
-        }
+        if (allowedOrigins.indexOf(origin) !== -1) return callback(null, true);
+        // Not allowed
         return callback(new Error('CORS policy: Origin not allowed'), false);
     },
     credentials: true
