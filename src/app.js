@@ -18,13 +18,31 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-app.use(cors());
+// Configure CORS to allow requests from the production frontend and allow credentials (cookies)
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://www.metalbroker.com.au';
+const allowedOrigins = [FRONTEND_URL];
+app.use(cors({
+    origin: function(origin, callback) {
+        // Allow non-browser requests (e.g., curl, server-to-server) when origin is undefined
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        }
+        return callback(new Error('CORS policy: Origin not allowed'), false);
+    },
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: process.env.SESSION_SECRET || 'metalshopsecret',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        // In production we need secure cookies and cross-site cookies for cross-origin frontend
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    }
 }));
 
 app.use(passport.initialize());
